@@ -20,6 +20,9 @@ while true do
 end
 ```
 
+Join to our developers community [incredible-gmod.ru](https://discord.incredible-gmod.ru)
+[![thumb](https://i.imgur.com/LYGqTnx.png)](https://discord.incredible-gmod.ru)
+
 ## TODO
 
 gmod net.Incoming ratelimiter based on this lib
