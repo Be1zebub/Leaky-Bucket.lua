@@ -7,7 +7,7 @@ A Lua implementation of Leaky bucket algorithm https://en.wikipedia.org/wiki/Lea
 local LeakyBucket = require("leaky-bucket")(1000, 50) -- 1 liter capacity, 50 milliliters per second bandwidth
 
 function webserver:onRequestReceive(request, response)
-  LeakyBucket:Add(request.headers.length, function()
+	LeakyBucket:Add(request.headers.length, function() -- fluid size = request length
 		response.headers.code = 200
 		response.body = "pong!"
 		response()
@@ -19,3 +19,7 @@ while true do
 	webserver.listen()
 end
 ```
+
+## TODO
+
+gmod net.Incoming ratelimiter based on this lib
