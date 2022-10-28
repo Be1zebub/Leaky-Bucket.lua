@@ -60,8 +60,11 @@ end
 function  LeakyBucket:__call()
 	local incoming = self.contents[1]
 	if incoming == nil then return end
+	
+	local time = os.time()
+	if time == self.lastLeak then return end
 
-	local change = (os.time() - self.lastLeak) * self.bandwidth
+	local change = (time - self.lastLeak) * self.bandwidth
 
 	self.content = math.max(0, self.content - change)
 	incoming.size = incoming.size - change
@@ -71,7 +74,7 @@ function  LeakyBucket:__call()
 		table.remove(self.contents, 1)
 	end
 
-	self.lastLeak = os.time()
+	self.lastLeak = time
 end
 
 return setmetatable(LeakyBucket, {
