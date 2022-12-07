@@ -57,7 +57,7 @@ function LeakyBucket:Add(size, cback)
 	return true
 end
 
-function  LeakyBucket:__call()
+function LeakyBucket:__call()
 	local incoming = self.contents[1]
 	if incoming == nil then return end
 	
@@ -70,7 +70,7 @@ function  LeakyBucket:__call()
 	incoming.size = incoming.size - change
 
 	if incoming.size <= 0 then
-		incoming.cback()
+		if incoming.cback then incoming.cback() end
 		table.remove(self.contents, 1)
 	end
 
@@ -81,7 +81,7 @@ return setmetatable(LeakyBucket, {
 	__call = function(self, capacity, bandwidth)
 		return setmetatable({
 			capacity 	= capacity,		-- can fit X liters
-			bandwidth 	= bandwidth,	-- leak rate per second
+			bandwidth 	= bandwidth,		-- leak rate per second
 			content 	= 0,			-- inner x liters
 			contents 	= {},			-- fluids queue
 			lastLeak 	= os.time()
